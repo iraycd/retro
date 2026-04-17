@@ -1,0 +1,13 @@
+{
+  "name": "retro",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "stop": "kill $(cat .pid) 2>/dev/null && rm -f .pid && echo 'Stopped' || echo 'Not running'",
+    "start:bg": "node server.js & echo $! > .pid && echo \"Retro board started (pid $(cat .pid))\""
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

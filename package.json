@@ -3,11 +3,28 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node server.js",
+    "dev:server": "node server.js",
+    "dev:client": "vite",
+    "dev": "concurrently -k -n server,client -c cyan,magenta \"npm run dev:server\" \"npm run dev:client\"",
+    "build": "vite build",
+    "start": "npm run build && node server.js",
+    "start:fast": "node server.js",
     "stop": "kill $(cat .pid) 2>/dev/null && rm -f .pid && echo 'Stopped' || echo 'Not running'",
     "start:bg": "node server.js & echo $! > .pid && echo \"Retro board started (pid $(cat .pid))\""
   },
   "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/ws": "^8.5.13",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
   }
 }

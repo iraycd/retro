@@ -1,5 +1,8 @@
 node_modules/
+dist/
 data.json
+data.json.bak
+boards/
 .pid
 *.tmp
 .DS_Store

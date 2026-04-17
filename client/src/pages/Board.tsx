@@ -399,7 +399,10 @@ export function BoardPage({ code }: { code: string }) {
     return <div style={{ textAlign: "center", padding: "4rem", color: "var(--text-muted)" }}>Loading…</div>;
   }
 
-  return <BoardView boardId={boardId} boardCode={code.toUpperCase()} />;
+  const normalCode = code.startsWith("r-") || code.startsWith("R-")
+    ? "r-" + code.slice(2).toUpperCase()
+    : code.toUpperCase();
+  return <BoardView boardId={boardId} boardCode={normalCode} />;
 }
 
 function BoardView({ boardId, boardCode }: { boardId: string; boardCode: string }) {

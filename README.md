@@ -60,6 +60,43 @@ To hand off admin: click **Copy admin link** and send it to the new facilitator.
 PORT=3000 npm start
 ```
 
+## Sharing over the internet
+
+The server serves HTTP and WebSocket on the same port (default `7179`), so any tunnel that proxies a single port and supports WebSockets will work. Always run `npm start` (not `npm run dev`) — production mode serves everything from one port; dev mode splits Vite (5173) and the server (7179).
+
+### Cloudflare Tunnel (recommended — free, no signup)
+
+```bash
+brew install cloudflared
+npm start                                          # terminal 1
+cloudflared tunnel --url http://localhost:7179     # terminal 2
+```
+
+Cloudflared prints a `https://<random>.trycloudflare.com` URL. WebSockets work out of the box.
+
+### ngrok
+
+```bash
+brew install ngrok
+ngrok config add-authtoken <your_token>   # one-time, from ngrok.com dashboard
+npm start
+ngrok http 7179
+```
+
+### Tailscale Funnel
+
+If you already use Tailscale:
+
+```bash
+tailscale funnel 7179
+```
+
+### Caveats when exposing to the internet
+
+- **Admin = first connection.** Whoever opens the public URL first becomes admin. Open it yourself first before sharing, or hand out the **Copy admin link** URL to your co-facilitator only.
+- **No authentication.** Anyone with a board URL can join. Board codes are short (`r-XXXXX`) and guessable — treat an internet-exposed instance as semi-public.
+- **Use a custom port if needed.** `PORT=3000 npm start` then tunnel `localhost:3000`.
+
 ## Background mode
 
 ```bash
